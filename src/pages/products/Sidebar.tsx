@@ -1,7 +1,13 @@
 import { Checkbox } from "@/components/ui/checkbox";
-import { productTypes } from "./index";
+type SidebarProps = {
+  selectedCategories: string[];
+  setSelectedCategories: React.Dispatch<React.SetStateAction<string[]>>;
+};
 
-const Sidebar = ({ selectedCategories, setSelectedCategories }) => {
+const Sidebar = ({
+  selectedCategories,
+  setSelectedCategories,
+}: SidebarProps) => {
   const handleCategoryChange = (category: string) => {
     setSelectedCategories(
       (prevSelected: string[]) =>
