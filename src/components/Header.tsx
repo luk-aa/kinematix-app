@@ -1,4 +1,4 @@
-import logo from "@/assets/images/WhiteLogo.png";
+import logo from "@/assets/images/whiteLogo.png";
 import { Link, NavLink } from "react-router-dom";
 
 import { RiShoppingCartFill } from "react-icons/ri";
