@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import firstImg from "@/assets/images/arduinoFirstImgs.jpg";
-import secondImg from "@/assets/images/arduinosecondImg.jpg";
+import secondImg from "@/assets/images/arduinoSecondImg.jpg";
 
 const Content = () => {
   const [hovered, setHovered] = useState(false);
