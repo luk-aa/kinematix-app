@@ -14,7 +14,7 @@ type productTypes = {
 };
 
 const Products = () => {
-  const products = useLoaderData();
+  const products = useLoaderData() as productTypes[];
   console.log(products);
   const productsMap = products.map((product: productTypes) => (
     <div

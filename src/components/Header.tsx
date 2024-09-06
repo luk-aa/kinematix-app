@@ -2,7 +2,6 @@ import logo from "../assets/images/WhiteLogo.png";
 import { Link, NavLink } from "react-router-dom";
 
 import { RiShoppingCartFill } from "react-icons/ri";
-import { IoIosMenu } from "react-icons/io";
 import { FiMenu } from "react-icons/fi";
 import { useState } from "react";
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
