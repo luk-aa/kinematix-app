@@ -1,13 +1,13 @@
-import { popularProducts } from "@/data";
 import { LuShoppingCart } from "react-icons/lu";
+import { productTypes } from "./index";
 
-const Products = () => {
-  const productsMap = popularProducts.map((product) => (
+const Products = ({ products }: { products: productTypes[] }) => {
+  const productsMap = products.map((product: productTypes) => (
     <div
       key={product.id}
-      className="relative p-5 h-[360px] border-[1px] hover:border-primary hover:shadow-md"
+      className="relative p-5 h-[340px] border-[1px] hover:border-primary hover:shadow-md"
     >
-      <div className="max-h-[190px] mb-8 flex justify-center items-center overflow-hidden">
+      <div className="max-h-[130px] border-black bg-black mb-8 flex justify-center items-center overflow-hidden">
         <img src={product.imageUrl} alt="product-image" />
       </div>
       <h2>{product.name}</h2>
@@ -19,11 +19,7 @@ const Products = () => {
       </div>
     </div>
   ));
-  return (
-    <div className="grid sm:grid-cols-2 md:grid-cols-4 mt-10">
-      {productsMap}
-    </div>
-  );
+  return <div className="grid grid-cols-4">{productsMap}</div>;
 };
 
 export default Products;
