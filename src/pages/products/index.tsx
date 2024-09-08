@@ -55,9 +55,13 @@ const Store = () => {
   console.log(displayedVans);
 
   return (
-    <div className="md:flex min-h-screen sm:space-x-10">
+    <div className="md:flex min-h-screen md:space-x-10">
       {/* Sidebar */}
-      <div className={`max-w-[500px] ${showCategory ? "block" : "hidden"}`}>
+      <div
+        className={`max-w-[500px] md:block ${
+          showCategory ? "block" : "hidden"
+        }`}
+      >
         <Sidebar
           handleFilterChange={handleFilterChange}
           typeFilter={typeFilter}

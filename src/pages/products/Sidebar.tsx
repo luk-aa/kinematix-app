@@ -22,7 +22,7 @@ const Sidebar = ({
   setShowCategory,
 }: SidebarPropsType) => {
   const handleClick: handleClickTypes = (key, value) => {
-    setShowCategory((prev) => !prev);
+    setShowCategory(false);
     handleFilterChange(key, value);
   };
 
