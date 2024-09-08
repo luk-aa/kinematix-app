@@ -64,3 +64,7 @@ export const popularProducts = [
     category: "kits",
   },
 ];
+
+export function getProducts(id: string) {
+  return popularProducts.find((product) => product.id === id) || null;
+}

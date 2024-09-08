@@ -1,13 +1,16 @@
 import { popularProducts } from "@/data";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useSearchParams } from "react-router-dom";
 import Products from "./Products";
 import Sidebar from "./Sidebar";
+import { MdKeyboardArrowUp } from "react-icons/md";
 import { useState } from "react";
 
+// Loader function returning the products
 export function loader() {
   return popularProducts;
 }
 
+// Define product type
 export type productTypes = {
   id: string;
   name: string;
@@ -16,30 +19,65 @@ export type productTypes = {
   category: string;
 };
 
-const Store = () => {
-  // Initialize state as an empty array of strings
-  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
-  const products = useLoaderData() as productTypes[];
-  console.log(selectedCategories);
+// Type for handleFilterChange function
+export type handleFilterChangeTypes = (
+  key: string,
+  value: string | null
+) => void;
 
-  const filteredData =
-    selectedCategories.length > 0
-      ? products.filter((product) =>
-          selectedCategories.includes(product.category)
-        )
-      : products;
+const Store = () => {
+  const [showCategory, setShowCategory] = useState<boolean>(false);
+  // Initialize searchParams and data
+  const [searchParams, setSearchParams] = useSearchParams();
+  const dataPromise = useLoaderData() as productTypes[];
+
+  // Get the 'category' filter from searchParams
+  const typeFilter = searchParams.get("category");
+
+  // Define the handleFilterChange function with types
+  const handleFilterChange: handleFilterChangeTypes = (key, value) => {
+    setSearchParams((prevParams) => {
+      const newParams = new URLSearchParams(prevParams); // Create a new instance
+      if (value === null) {
+        newParams.delete(key); // Delete if value is null
+      } else {
+        newParams.set(key, value); // Otherwise set the new value
+      }
+      return newParams; // Return the new search params
+    });
+  };
+
+  // Filter products based on category
+  const displayedVans = typeFilter
+    ? dataPromise.filter((p) => p.category === typeFilter)
+    : dataPromise;
+
+  console.log(displayedVans);
 
   return (
-    <div className="flex h-screen space-x-10">
-      <div className="hidden md:flex w-[600px]">
+    <div className="md:flex min-h-screen sm:space-x-10">
+      {/* Sidebar */}
+      <div className={`max-w-[500px] ${showCategory ? "block" : "hidden"}`}>
         <Sidebar
-          setSelectedCategories={setSelectedCategories}
-          selectedCategories={selectedCategories}
+          handleFilterChange={handleFilterChange}
+          typeFilter={typeFilter}
+          setShowCategory={setShowCategory}
         />
       </div>
-      <div className="flex-">
-        <Products products={filteredData} />
-      </div>
+      {!showCategory && (
+        <>
+          <button
+            className="flex items-center justify-center md:hidden w-full mb-2 text-secondary  bg-slate-200 px-5 py-3"
+            onClick={() => setShowCategory(true)}
+          >
+            კატეგორიები
+            <MdKeyboardArrowUp className="text-lg" />
+          </button>
+          <div className="">
+            <Products products={displayedVans} />
+          </div>
+        </>
+      )}
     </div>
   );
 };

@@ -4,8 +4,6 @@ export default function Preloader() {
   const [showLoader, setShowLoader] = useState(true);
   const [isLoded, setIsLoded] = useState(false);
 
-  console.log(showLoader, isLoded);
-
   useEffect(() => {
     window.addEventListener("load", () => {
       setIsLoded(false);
