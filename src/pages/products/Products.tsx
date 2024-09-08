@@ -7,9 +7,9 @@ const Products = ({ products }: { products: productTypes[] }) => {
     <Link to={`/products/${product.id}`}>
       <div
         key={product.id}
-        className="relative sm:p-3 h-60 sm:h-[340px] border-[1px] hover:border-primary hover:shadow-md"
+        className="relative sm:p-3 h-60 sm:h-[340px] border-[1px] bg-white hover:border-primary hover:shadow-md"
       >
-        <div className="max-h-28 sm:max-h-[130px] border-black bg-black mb-3 sm:mb-5 flex justify-center items-center overflow-hidden">
+        <div className="max-h-28 sm:max-h-[130px] mb-3 sm:mb-5 flex justify-center items-center overflow-hidden">
           <img src={product.imageUrl} alt="product-image" />
         </div>
         <h2 className="text-center text-sm sm:text-lg sm:text-start">

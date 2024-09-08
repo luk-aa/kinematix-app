@@ -22,7 +22,7 @@ const Header = () => {
   return (
     <header className="tracking-widest fixed w-full bg-[#008184] h-14 text-white pl-5 lg:px-7 flex justify-between items-center z-40">
       <Link to="/" className=" md:w-24">
-        <img className="w-16 sm:w-24" src={logo} alt="logo" />
+        <img className="w-24" src={logo} alt="logo" />
       </Link>
       <nav className="h-full md:flex items-center hidden">
         <NavLink
