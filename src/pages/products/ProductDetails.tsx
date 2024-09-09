@@ -1,20 +1,26 @@
 import { useState } from "react";
 import { getProducts } from "@/data";
-import { useLoaderData, Link } from "react-router-dom";
+import { useLoaderData, Link, LoaderFunction } from "react-router-dom";
 import { useShoppingCart } from "../../context/ShoppingCartContext";
 import { productTypes } from "./index";
 import { ShoppingCartContextType } from "@/context/ShoppingCartContext";
 import { LuShoppingCart } from "react-icons/lu";
 import { BsBagCheck } from "react-icons/bs";
 import ProdsCarousel from "./Carousel";
+import { LoaderFunctionArgs } from "react-router-dom";
 
-// Loader function
-export function loader({ params }: { params: { id: string } }) {
-  return getProducts(params.id);
-}
+export const loader: LoaderFunction = ({ params }: LoaderFunctionArgs) => {
+  const { id } = params; // Access the id from params
+  if (!id) {
+    return null; // Handle case when id is missing
+  }
+
+  const product = getProducts(id); // Replace with actual logic
+  return product || null;
+};
 
 const ProductDetail = () => {
-  const product = useLoaderData() as productTypes; // Ensure correct type for product
+  const product = useLoaderData() as productTypes;
   const [quantity, setQuantity] = useState<number>(1);
   const [price, setPrice] = useState<number>(product.price);
 
