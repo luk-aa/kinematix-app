@@ -4,13 +4,13 @@ import { Link, NavLink } from "react-router-dom";
 import { RiShoppingCartFill } from "react-icons/ri";
 import { FiMenu } from "react-icons/fi";
 import { useState } from "react";
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-// import { faCartShopping } from '@fortawesome/free-solid-svg-icons'
-// import { useShoppingCart } from '../context/ShoppingCartContext'
+import { useShoppingCart } from "@/context/ShoppingCartContext";
+import { ShoppingCartContextType } from "@/context/ShoppingCartContext";
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
-  // const { openCart, cartQuantity } = useShoppingCart()
+  const { openCart, cartQuantity } =
+    useShoppingCart() as ShoppingCartContextType;
   const activeStyles: React.CSSProperties = {
     borderBottom: "2px solid rgb(250 204 21)",
     color: "rgb(250 204 21)",
@@ -18,6 +18,11 @@ const Header = () => {
 
   const linkStyles =
     "px-5 h-full flex items-center justify-center hover:text-yellow-400 border-b-2 border-transparent hover:border-yellow-400";
+
+  const clicked = () => {
+    console.log("clicked");
+    openCart();
+  };
 
   return (
     <header className="tracking-widest fixed w-full bg-[#008184] h-14 text-white pl-5 lg:px-7 flex justify-between items-center z-40">
@@ -78,15 +83,14 @@ const Header = () => {
         </nav>
       )}
       <div className="text-2xl md:w-24 h-full flex items-center justify-between md:justify-end">
-        <div className="pr-5 md:pr-0">
-          <RiShoppingCartFill />
-        </div>
-        {/* <RiShoppingCartFill className="cursor-pointer" onClick={openCart} /> */}
-        {/* {cartQuantity > 0 && (
-            <div className="absolute rounded-full bottom-[-30%] right-[-50%] bg-red-600 w-5 h-5 flex justify-center items-center text-white text-xs">
+        <div className="relative mr-5 md:mr-0 " onClick={clicked}>
+          <RiShoppingCartFill className="cursor-pointer" />
+          {cartQuantity > 0 && (
+            <div className="z-40 absolute rounded-full -top-1 -right-2 md   bg-yellow-500 w-5 h-5 flex justify-center items-center text-white text-xs">
               {cartQuantity}
             </div>
-            )} */}
+          )}
+        </div>
 
         {/* BURGER MENU ICON */}
         <div

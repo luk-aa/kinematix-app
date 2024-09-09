@@ -11,6 +11,8 @@ import Store, { loader as storeLoader } from "./pages/products";
 import ProductDetails, {
   loader as productDetailsLoader,
 } from "./pages/products/ProductDetails";
+import AboutUs from "./pages/AboutUs";
+import Contact from "./pages/contact/Index";
 
 function App() {
   const router = createBrowserRouter(
@@ -23,6 +25,8 @@ function App() {
           element={<ProductDetails />}
           loader={productDetailsLoader}
         />
+        <Route path="about" element={<AboutUs />} />
+        <Route path="contact" element={<Contact />} />
       </Route>
     )
   );

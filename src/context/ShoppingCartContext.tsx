@@ -1,74 +1,107 @@
-// import React, { createContext } from "react";
-// import ShoppingCart from "../components/ShoppingCart";
-// import { useLocalStorage } from "../hooks/useLocalStorage";
-// import { toast } from "sonner";
+import React, { createContext } from "react";
+import ShoppingCart from "@/components/ShoppingCart";
+import { useLocalStorage } from "../hooks/useLocalStorage";
+import { toast } from "sonner";
 
-// const ShoppingCartContext = createContext({});
+// Define type for a product/item
+export type CartItemTypes = {
+  id: string;
+  name: string;
+  imageUrl: string;
+  price: number;
+  category: string;
+  quantity: number;
+};
 
-// export function useShoppingCart() {
-//   return React.useContext(ShoppingCartContext);
-// }
+// Define type for context values
+export type ShoppingCartContextType = {
+  cart: CartItemTypes[];
+  addToCart: (item: CartItemTypes, quantity: number) => void;
+  removeFromCart: (id: string) => void;
+  closeCart: () => void;
+  openCart: () => void;
+  cartQuantity: number;
+  totalPrice: number;
+};
 
-// export function ShoppingCartProvider({ children }) {
-//   const [cart, setCart] = useLocalStorage("shopping-cart", []);
-//   const [isOpen, setIsOpen] = React.useState(false);
+type ShoppingCartProviderProps = {
+  children: React.ReactNode;
+};
 
-//   const openCart = () => {
-//     setIsOpen(true);
-//     document.body.classList.add("no-scroll"); // Disable background scrolling
-//   };
-//   const closeCart = () => {
-//     setIsOpen(false);
-//     document.body.classList.remove("no-scroll"); // Re-enable background scrolling
-//   };
+const ShoppingCartContext = createContext<ShoppingCartContextType | undefined>(
+  undefined
+);
 
-//   const cartQuantity = cart.length;
+export function useShoppingCart() {
+  return React.useContext(ShoppingCartContext);
+}
 
-//   const addToCart = (item, quantity) => {
-//     setCart((prevCart) => {
-//       // Check if the item already exists in the cart
-//       toast.success(`${item.name} added to cart`);
-//       const existingItem = prevCart.find((cartItem) => cartItem.id === item.id);
+export function ShoppingCartProvider({ children }: ShoppingCartProviderProps) {
+  const [cart, setCart] = useLocalStorage("shopping-cart", []);
+  const [isOpen, setIsOpen] = React.useState(false);
 
-//       if (existingItem) {
-//         // If it exists, update the quantity
-//         return prevCart.map((cartItem) =>
-//           cartItem.id === item.id
-//             ? { ...cartItem, quantity: cartItem.quantity + quantity }
-//             : cartItem
-//         );
-//       } else {
-//         // If it doesn't exist, add it to the cart
-//         return [...prevCart, { ...item, quantity }];
-//       }
-//     });
-//   };
+  const openCart = () => {
+    console.log("openCart");
+    setIsOpen(true);
+    document.body.classList.add("no-scroll"); // Disable background scrolling
+  };
+  const closeCart = () => {
+    setIsOpen(false);
+    document.body.classList.remove("no-scroll"); // Re-enable background scrolling
+  };
 
-//   const totalPrice = cart.reduce((total, cartItem) => {
-//     const item = cart.find((i) => i.id === cartItem.id);
-//     return total + (item?.price || 0) * cartItem.quantity;
-//   }, 0);
+  const cartQuantity = cart.length;
 
-//   const removeFromCart = (id) => {
-//     setCart((prevCart) => {
-//       return prevCart.filter((item) => item.id !== id);
-//     });
-//   };
+  const addToCart = (item: CartItemTypes, quantity: number) => {
+    setCart((prevCart: CartItemTypes[]) => {
+      // Check if the item already exists in the cart
+      toast.success(`${item.name} დაემატა კალათას`);
+      const existingItem = prevCart.find(
+        (cartItemTypes) => cartItemTypes.id === item.id
+      );
 
-//   return (
-//     <ShoppingCartContext.Provider
-//       value={{
-//         addToCart,
-//         removeFromCart,
-//         closeCart,
-//         openCart,
-//         cart,
-//         cartQuantity,
-//         totalPrice,
-//       }}
-//     >
-//       {children}
-//       <ShoppingCart isOpen={isOpen} />
-//     </ShoppingCartContext.Provider>
-//   );
-// }
+      if (existingItem) {
+        // If it exists, update the quantity
+        return prevCart.map((cartItemTypes) =>
+          cartItemTypes.id === item.id
+            ? { ...cartItemTypes, quantity: cartItemTypes.quantity + quantity }
+            : cartItemTypes
+        );
+      } else {
+        // If it doesn't exist, add it to the cart
+        return [...prevCart, { ...item, quantity }];
+      }
+    });
+  };
+
+  const totalPrice = cart.reduce(
+    (total: number, cartItemTypes: CartItemTypes) => {
+      const item = cart.find((i: CartItemTypes) => i.id === cartItemTypes.id);
+      return total + (item?.price || 0) * cartItemTypes.quantity;
+    },
+    0
+  );
+
+  const removeFromCart = (id: string) => {
+    setCart((prevCart: CartItemTypes[]) => {
+      return prevCart.filter((item) => item.id !== id);
+    });
+  };
+
+  return (
+    <ShoppingCartContext.Provider
+      value={{
+        addToCart,
+        removeFromCart,
+        closeCart,
+        openCart,
+        cart,
+        cartQuantity,
+        totalPrice,
+      }}
+    >
+      {children}
+      <ShoppingCart isOpen={isOpen} />
+    </ShoppingCartContext.Provider>
+  );
+}
