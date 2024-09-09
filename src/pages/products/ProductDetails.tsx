@@ -1,6 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { getProducts } from "@/data";
-import { useLoaderData, Link, LoaderFunction } from "react-router-dom";
+import {
+  useLoaderData,
+  Link,
+  LoaderFunction,
+  useLocation,
+} from "react-router-dom";
 import { useShoppingCart } from "../../context/ShoppingCartContext";
 import { productTypes } from "./index";
 import { ShoppingCartContextType } from "@/context/ShoppingCartContext";
@@ -23,8 +28,14 @@ const ProductDetail = () => {
   const product = useLoaderData() as productTypes;
   const [quantity, setQuantity] = useState<number>(1);
   const [price, setPrice] = useState<number>(product.price);
-
+  const location = useLocation(); // Detects the current route (link)
   const { addToCart } = useShoppingCart() as ShoppingCartContextType;
+
+  useEffect(() => {
+    // Reset state when the URL changes
+    setQuantity(1);
+    setPrice(product.price);
+  }, [location.pathname]);
 
   // Handle increase in quantity
   function plus(): void {

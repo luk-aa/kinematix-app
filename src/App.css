@@ -7,6 +7,10 @@
   letter-spacing: 0.05rem;
 }
 
+.no-scroll {
+  overflow: hidden;
+}
+
 body {
   background-color: #f5f5f5;
 }

@@ -4,6 +4,7 @@ import Products from "./Products";
 import Sidebar from "./Sidebar";
 import { MdKeyboardArrowUp } from "react-icons/md";
 import React, { useState } from "react";
+import { SkeletonCard } from "./ProdsSkeleton";
 
 // Loader function returning the products
 export function loader() {
@@ -88,11 +89,12 @@ const Store = () => {
 
   return (
     <div className="md:flex min-h-screen md:space-x-10">
-      <React.Suspense fallback={<h1>Loading...</h1>}>
+      <React.Suspense fallback={<SkeletonCard />}>
         <Await resolve={dataPromise.prods}>
           {(prods) => renderProdElements(prods)}
         </Await>
       </React.Suspense>
+      {/* <SkeletonCard /> */}
     </div>
   );
 };

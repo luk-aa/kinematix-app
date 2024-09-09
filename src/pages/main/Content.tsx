@@ -29,7 +29,7 @@ const Content = () => {
           </p>
           <Link
             to="/"
-            className="hover:shadow-md shadow-sm font-semibold text-[#008184] mt-10 inline-block bg-white px-5 py-3 rounded-full"
+            className="hover:shadow-md shadow-sm font-semibold text-primary mt-10 inline-block bg-white px-5 py-3 rounded-full"
           >
             შეძენა
           </Link>
@@ -56,7 +56,7 @@ const Content = () => {
           </p>
           <Link
             to="/"
-            className="hover:shadow-md shadow-sm font-semibold text-[#008184] mt-10 inline-block bg-white px-5 py-3 rounded-full"
+            className="hover:shadow-md shadow-sm font-semibold text-primary mt-10 inline-block bg-white px-5 py-3 rounded-full"
           >
             შეძენა
           </Link>
