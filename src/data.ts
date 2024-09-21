@@ -1,3 +1,4 @@
+import lowResImage from "@/assets/images/products/blury1.jpg";
 export const popularProducts = [
   {
     id: "1",
@@ -6,6 +7,7 @@ export const popularProducts = [
       "https://store.arduino.cc/cdn/shop/products/TPX00092_00.default_430x287.jpg?v=1630653520",
     highResImageUrl:
       "https://store.arduino.cc/cdn/shop/products/TPX00092_00.default_2400x1600.jpg?v=1630653520",
+    lowResImage: { lowResImage },
     description:
       "DIY mixtable, რომელიც გასწავლით მიკროკომპიუტერების და ელექტრონიკის, ხმის ტალღების და ციფრული ხმის წარმოების და პირადი კოდირების შესახებ!",
     price: 100,

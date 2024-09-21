@@ -14,6 +14,7 @@ const Products = ({ products }: { products: productTypes[] }) => {
         to={`/products/${product.id}`}
         key={product.id}
         className="hover:text-primary text-secondary"
+        data-aos="fade-up"
         // state={{
         //   search: `?${searchParams.toString()}`,
         //   type: typeFilter,

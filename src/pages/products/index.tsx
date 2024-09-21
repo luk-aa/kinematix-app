@@ -94,7 +94,6 @@ const Store = () => {
           {(prods) => renderProdElements(prods)}
         </Await>
       </React.Suspense>
-      {/* <SkeletonCard /> */}
     </div>
   );
 };

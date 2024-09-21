@@ -13,6 +13,7 @@ import { LuShoppingCart } from "react-icons/lu";
 import { BsBagCheck } from "react-icons/bs";
 import ProdsCarousel from "./Carousel";
 import { LoaderFunctionArgs } from "react-router-dom";
+import img from "@/assets/images/products/blury1.jpg";
 
 export const loader: LoaderFunction = ({ params }: LoaderFunctionArgs) => {
   const { id } = params; // Access the id from params
@@ -28,6 +29,7 @@ const ProductDetail = () => {
   const product = useLoaderData() as productTypes;
   const [quantity, setQuantity] = useState<number>(1);
   const [price, setPrice] = useState<number>(product.price);
+  const [isHighResLoaded, setIsHighResLoaded] = useState(false);
   const location = useLocation(); // Detects the current route (link)
   const { addToCart } = useShoppingCart() as ShoppingCartContextType;
 
@@ -53,12 +55,21 @@ const ProductDetail = () => {
 
   return (
     <div>
-      {/* <h1 className="text-center max-w-[310px] my-3 text-4xl font-bold m-auto">
-        {product.name}
-      </h1> */}
       <div className="lg:flex lg:space-x-10 mb-16">
-        <div className="lg:w-1/2 rounded-sm md:rounded-none overflow-hidden">
-          <img src={product.highResImageUrl} alt={product.name} />
+        <div className="relative lg:w-1/2 rounded-sm md:rounded-none overflow-hidden">
+          <img
+            src={product.imageUrl}
+            alt="image"
+            className={`w-full h-auto transition duration-500 ease-out ${
+              isHighResLoaded ? "blur-0" : "blur-lg"
+            }`}
+          />
+          <img
+            src={product.highResImageUrl}
+            alt={product.name}
+            className={`absolute top-0 left-0 w-full h-auto transition-opacity duration-500 ease-in `}
+            onLoad={() => setIsHighResLoaded(true)}
+          />
         </div>
         <div className="py-6 px-5 bg-white text-center md:text-start lg:w-1/2 lg:px-8 lg:flex lg:flex-col lg:justify-center">
           <h2 className="mb-5 text-3xl">{product.name}</h2>

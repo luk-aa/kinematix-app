@@ -12,10 +12,12 @@ const Products = () => {
     <div
       className="relative sm:p-3 h-60 sm:h-[340px] border-[1px] bg-white hover:border-primary hover:shadow-md"
       key={product.id}
+      lazy-load
     >
       <Link
         to={`/products/${product.id}`}
         className="hover:text-primary text-secondary"
+        data-aos="fade-up"
       >
         <div className="max-h-28 sm:max-h-[130px] flex justify-center items-center overflow-hidden">
           <img src={product.imageUrl} alt="product-image" />

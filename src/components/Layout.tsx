@@ -5,8 +5,16 @@ import Preloader from "./common/Preloader";
 import { ShoppingCartProvider } from "@/context/ShoppingCartContext";
 import { Toaster } from "./ui/sonner";
 import ScrollToTop from "./common/ScrollToTop";
+import { useEffect } from "react";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 const Layout = () => {
+  useEffect(() => {
+    AOS.init({
+      once: true,
+    });
+  }, []);
   return (
     <ShoppingCartProvider>
       <Preloader />
