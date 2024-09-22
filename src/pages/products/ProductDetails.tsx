@@ -13,7 +13,6 @@ import { LuShoppingCart } from "react-icons/lu";
 import { BsBagCheck } from "react-icons/bs";
 import ProdsCarousel from "./Carousel";
 import { LoaderFunctionArgs } from "react-router-dom";
-import img from "@/assets/images/products/blury1.jpg";
 
 export const loader: LoaderFunction = ({ params }: LoaderFunctionArgs) => {
   const { id } = params; // Access the id from params
